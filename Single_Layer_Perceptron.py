@@ -1,8 +1,10 @@
+#Code by Sparsha
 import numpy as np
 import matplotlib.pyplot as plt
 import random as rand
 
-def get_data(x):
+
+def get_data(x):     #function to read data from file
     datafile=open(x,"r")
     datalist=[]
     for line in datafile:
@@ -12,20 +14,30 @@ def get_data(x):
     f=np.matrix(datalist)
     return datalist
 
-def signum(data):
-    if data<0:
+
+
+def signum(data):    #activation function signum
+    if data < 0:
         return -1
     else:
         return 1
 
-def get_weight_dim(x):
+
+
+
+def get_weight_dim(x):  #get dimensions of x data to calculate dimensions of weight matrix
     return (len(x[0]))
 
 
-def multiply(x,w):
+
+
+def multiply(x,w):      #multiply two matrices
     return np.matmul(x,w)
 
-def training(iters,learning_rate,x,y,weight):
+
+
+
+def training(iters,learning_rate,x,y,weight):  #function to train model
     curr_row=0
     for i in range(iters):
         temp=multiply(x[curr_row],weight)
@@ -45,12 +57,12 @@ def training(iters,learning_rate,x,y,weight):
         if z==0.0:
             break
         
-        
-        
     return weight
     
-    
-def calc_error(x,y,weight):
+
+
+  
+def calc_error(x,y,weight):  #function to calculate error
     f=multiply(x,weight)
     f=f.tolist()
     f=[[signum(i[0]) ] for i in f]
@@ -61,16 +73,21 @@ def calc_error(x,y,weight):
             error=error+1
     return (error/len(x) *100)
 
- 
+
+
+#function calling
 x=get_data("x_data.txt")
 for i in x:
     i.insert(0,1)
 y=get_data("y_data.txt")
-plt.plot([i[1] for i in x],[i[2] for i in x],"ro")
+plt.plot([i[1] for i in x],[i[2] for i in x],"bx")
 
 dim=get_weight_dim(x)
 weightvec=[[rand.uniform(-1,1)] for i in range(dim)]
 weightvec=training(1000,0.01,np.matrix(x),np.matrix(y),np.matrix(weightvec))
+print('\n')
+print("Weights are: ")
 print(weightvec)
+print('\n')
 plt.show()
 
