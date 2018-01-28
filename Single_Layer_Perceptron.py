@@ -40,16 +40,26 @@ def training(iters,learning_rate,x,y,weight):
             curr_row=0
         
         
-
+        z=calc_error(x,y,weight)
+        print("Iteration : "+str(i)+"  error : "+str(z))
+        if z==0.0:
+            break
+        
+        
         
     return weight
     
     
 def calc_error(x,y,weight):
-   f=multiply(x,weight)
-   f=f.tolist()
-   print(f)
-    
+    f=multiply(x,weight)
+    f=f.tolist()
+    f=[[signum(i[0]) ] for i in f]
+    c=y-f
+    error=0
+    for i in range(len(c)):
+        if c[i][0]!=0.0:
+            error=error+1
+    return (error/len(x) *100)
 
  
 x=get_data("x_data.txt")
@@ -61,6 +71,6 @@ plt.plot([i[1] for i in x],[i[2] for i in x],"ro")
 dim=get_weight_dim(x)
 weightvec=[[rand.uniform(-1,1)] for i in range(dim)]
 weightvec=training(1000,0.01,np.matrix(x),np.matrix(y),np.matrix(weightvec))
-calc_error(np.matrix(x),np.matrix(y),weightvec)
-#plt.show()
+print(weightvec)
+plt.show()
 
