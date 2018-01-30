@@ -59,9 +59,6 @@ def training(iters,learning_rate,x,y,weight):  #function to train model
         
     return weight
     
-
-
-  
 def calc_error(x,y,weight):  #function to calculate error
     f=multiply(x,weight)
     f=f.tolist()
