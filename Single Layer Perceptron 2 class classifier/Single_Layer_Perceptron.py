@@ -73,18 +73,18 @@ def calc_error(x,y,weight):  #function to calculate error
 
 
 #function calling
-x=get_data("x_data.txt")
+x=get_data("x_data.txt") #Name of the file containing the x_data set where the features are separated by commas
 for i in x:
     i.insert(0,1)
-y=get_data("y_data.txt")
+y=get_data("y_data.txt") #Name of the file containing the y_data set
 plt.plot([i[1] for i in x],[i[2] for i in x],"bx")
 
 dim=get_weight_dim(x)
-weightvec=[[rand.uniform(-1,1)] for i in range(dim)]
+weightvec=[[rand.uniform(-1,1)] for i in range(dim)] #Random initialization of weights at the begining between -1 and +1
 weightvec=training(1000,0.01,np.matrix(x),np.matrix(y),np.matrix(weightvec))
 print('\n')
 print("Weights are: ")
-print(weightvec)
+print(weightvec) #Final weights
 print('\n')
 plt.show()
 
